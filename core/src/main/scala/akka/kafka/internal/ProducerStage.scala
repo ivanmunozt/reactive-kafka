@@ -66,9 +66,10 @@ private[kafka] class ProducerStage[K, V, P](
           producer.send(msg.record, new Callback {
             override def onCompletion(metadata: RecordMetadata, exception: Exception) = {
               if (exception == null)
-                r.success(Result(metadata.offset, msg))
+                r.success(Result(metadata.offset, msg, true))
               else
-                r.failure(exception)
+                r.success(Result(-1, msg, false, Option(exception)))
+              //r.failure(exception)
               decrementConfirmation.invoke(())
             }
           })

@@ -36,7 +36,9 @@ object ProducerMessage {
    */
   final case class Result[K, V, PassThrough](
     offset: Long,
-    message: Message[K, V, PassThrough]
+    message: Message[K, V, PassThrough],
+    success: Boolean,
+    cause: Option[Exception] = None
   )
 
 }

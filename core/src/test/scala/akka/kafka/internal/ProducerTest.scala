@@ -59,7 +59,7 @@ class ProducerTest(_system: ActorSystem)
   def toMessage(tuple: (Record, RecordMetadata)) = Message(tuple._1, NotUsed)
   def toResult(tuple: (Record, RecordMetadata)) = {
     val (record: Record, meta: RecordMetadata) = tuple
-    Result(meta.offset, Message(record, NotUsed))
+    Result(meta.offset, Message(record, NotUsed), true)
   }
 
   val settings = ProducerSettings(system, new StringSerializer, new StringSerializer)
